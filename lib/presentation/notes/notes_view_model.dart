@@ -2,14 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/domain/repository/note_repository.dart';
 import 'package:flutter_note_app/presentation/notes/notes_event.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter_note_app/presentation/notes/notes_state.dart';
 
 class NotesViewModel with ChangeNotifier {
   final NoteRepository repository;
 
-  List<Note> _notes = [];
-  UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
-  // private 으로 외부에서 접근 불가능하게 선언했으면, nmodifiableListView , getter로 외부에 노출하기
+  NotesState _state = NotesState(notes: []);
+  NotesState get state => _state;
+
+  // List<Note> _notes = [];
+  // UnmodifiableListView<Note> get notes => UnmodifiableListView(_notes);
+  // // private 으로 외부에서 접근 불가능하게 선언했으면, nmodifiableListView , getter로 외부에 노출하기
 
   Note? _recentlyDeletedNote; // 마지막에 삭제된 노트는 여기에 저장
 
@@ -30,7 +33,10 @@ class NotesViewModel with ChangeNotifier {
   Future<void> _loadNotes() async {
     List<Note> notes = await repository.getNotes();
     // 갖고오면 이 데이터를 저장할 부분이 필요하기 때문에 10번줄에서 공간 만들어 주기
-    _notes = notes;
+    _state = state.copyWith(
+      notes: notes,
+      //notes로 갱신을 하겠다!
+    );
     notifyListeners(); // 이후에 provider 사용할 것이기 때문에 상태가 바뀔 땐 notifyListeners 선언해주기
   }
 
