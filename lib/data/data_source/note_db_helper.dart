@@ -2,12 +2,12 @@
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:sqflite/sqflite.dart';
 
-class NoteDb {
+class NoteDbHelper {
   // 데이터베이스 타입을 받을 예정
   Database db;
 
   // 생성자에서 db 받기
-  NoteDb(this.db);
+  NoteDbHelper(this.db);
 
   Future<Note?> getNoteById(int id) async {
     /* table 이름을 note라고 지정

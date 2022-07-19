@@ -1,9 +1,9 @@
-import 'package:flutter_note_app/data/data_source/note_db.dart';
+import 'package:flutter_note_app/data/data_source/note_db_helper.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/domain/repository/note_repository.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
-  final NoteDb db;
+  final NoteDbHelper db;
   // generate (comm+N) 생성자 만들어주기
   // return이 없을 때는 await , return 이면서 결과를 받아서 써주기 위해서는 return await 같이 써주면 된다.
 
