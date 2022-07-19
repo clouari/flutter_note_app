@@ -5,8 +5,8 @@ abstract class NoteRepository {
   // 1. Note 객체를 얻는 기능을 비동기로 만들어두기
   Future<List<Note>> getNotes();
 
-  // 2. 클릭을 하면 해당 노트를 가지고 오는 것
-  Future<Note> getNoteById(int it);
+  // 2. 클릭을 하면 해당 노트를 가지고 오는 것 + nullable로 고치면서 수정함
+  Future<Note?> getNoteById(int id);
 
   // 3. 노트 추가
   Future<void> insertNote(Note note);
