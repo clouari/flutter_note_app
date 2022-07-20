@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
+import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_screen.dart';
 import 'package:flutter_note_app/presentation/notes/components/note_item.dart';
 import 'package:flutter_note_app/ui/colors.dart';
 
@@ -24,7 +25,13 @@ class NotesScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddEditNoteScreen()),
+            // 정보를 가지고 있는 객체, 화면 전환이나 화면 사이즈 등등 많은 것을 알고 있다.
+          );
+        },
         child: const Icon(Icons.add),
       ),
       body: Padding(

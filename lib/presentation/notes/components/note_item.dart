@@ -4,8 +4,10 @@ import 'package:flutter_note_app/ui/colors.dart';
 
 class NoteItem extends StatelessWidget {
   final Note note;
+  final Function? onDeleteTab;
 
-  const NoteItem({Key? key, required this.note}) : super(key: key);
+  const NoteItem({Key? key, required this.note, this.onDeleteTab})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,13 @@ class NoteItem extends StatelessWidget {
           Positioned(
             bottom: 8,
             right: 8,
-            child: Icon(Icons.delete, color: darkGray),
+            child: GestureDetector(
+              onTap: () {
+                onDeleteTab?.call();
+                //onDeleteTab이 nullable이 아니라면 .call() 생략이 가능하다.
+              },
+              child: const Icon(Icons.delete, color: darkGray),
+            ),
           ),
         ],
       ),
