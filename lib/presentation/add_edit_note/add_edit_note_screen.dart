@@ -38,9 +38,11 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
         onPressed: () {},
         child: Icon(Icons.save),
       ),
-      body: Container(
+      body: AnimatedContainer(
+        // 부드럽게 바뀌는 효과를 원한다면 AnimatedContainer로 duration만 지정해주기
         padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
-        color: skyBlue,
+        color: _color,
+        duration: const Duration(milliseconds: 500),
         child: Column(
           children: [
             Row(
