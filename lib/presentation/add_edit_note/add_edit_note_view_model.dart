@@ -1,16 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/domain/repository/note_repository.dart';
 import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_event.dart';
+import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_ui_event.dart';
 import 'package:flutter_note_app/ui/colors.dart';
 
 class AddEditNoteViewModel with ChangeNotifier {
   final NoteRepository repository;
 
   int _color = roseBud.value;
-  // Colors.orange.value; // private color rkqtdl int 이기 때문에 아래처럼 값 변경하기
+  // Colors.orange.value; // private color 값이 int 이기 때문에 아래처럼 값 변경하기
   int get color => _color;
+
+  // 여기서 이벤트를 받아주는 코드 stream 으로 작성
+  final _eventController = StreamController<AddEditNoteUiEvent>();
+  Stream<AddEditNoteUiEvent> get eventStream => _eventController.stream;
 
   AddEditNoteViewModel(this.repository);
 
@@ -44,5 +51,7 @@ class AddEditNoteViewModel with ChangeNotifier {
             color: _color),
       );
     }
+
+    _eventController.add(const AddEditNoteUiEvent.saveNote());
   }
 }
