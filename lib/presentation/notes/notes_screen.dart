@@ -48,25 +48,39 @@ class NotesScreen extends StatelessWidget {
         child: ListView(
           children: state.notes
               .map(
-                (note) => NoteItem(
-                  note: note,
-                  // note 지우기
-                  onDeleteTab: () {
-                    viewModel.onEvent(NotesEvent.deleteNote(note));
-
-                    //  삭제후 스낵바 띄우기!
-                    final snackBar = SnackBar(
-                      content: Text('노트가 삭제되었습니다.'),
-                      action: SnackBarAction(
-                        label: '취소',
-                        onPressed: () {
-                          viewModel.onEvent(const NotesEvent.restoreNote());
-                        },
+                (note) => GestureDetector(
+                  // GestureDetector로 감싸고 누르면 작성 edit화면으로 넘어가게 1차완료
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddEditNoteScreen(
+                          note: note,
+                        ),
                       ),
+                      // 정보를 가지고 있는 객체, 화면 전환이나 화면 사이즈 등등 많은 것을 알고 있다.
                     );
-
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
+                  child: NoteItem(
+                    note: note,
+                    // note 지우기
+                    onDeleteTab: () {
+                      viewModel.onEvent(NotesEvent.deleteNote(note));
+
+                      //  삭제후 스낵바 띄우기!
+                      final snackBar = SnackBar(
+                        content: Text('노트가 삭제되었습니다.'),
+                        action: SnackBarAction(
+                          label: '취소',
+                          onPressed: () {
+                            viewModel.onEvent(const NotesEvent.restoreNote());
+                          },
+                        ),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                  ),
                 ),
               )
               .toList(),
