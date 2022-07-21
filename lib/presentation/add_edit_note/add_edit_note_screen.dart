@@ -55,6 +55,11 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
           Navigator.pop(context, true);
           // true 가 되면 savenote가 동작하면서 화면이 넘어갔다는 의미를 주기 때문에 필요함.
           // 아무것도 넘어가지 않는다몀 사용자가 뒤로가기를 누른 것임.
+        }, showSnackBar: (String message) {
+          final snackBar = SnackBar(
+            content: Text(message),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         });
       });
     });
@@ -76,15 +81,6 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (_titleController.text.isEmpty ||
-              _contentController.text.isEmpty) {
-            const snackBar = SnackBar(
-              content: Text('제목이나 내용이 비어있습니다'),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            return;
-          }
-
           viewModel.onEvent(
             AddEditNoteEvent.saveNote(
                 // note가 null이면 id도 null이고, null이 아니면 note.id 이다.
