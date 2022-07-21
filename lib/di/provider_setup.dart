@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<List<SingleChildWidget>> getProvider() async {
+Future<List<SingleChildWidget>> getProviders() async {
 //  DB를 비동기로 열고 여기서 생성하려고 함
   Database database = await openDatabase(
     'notes_db',
