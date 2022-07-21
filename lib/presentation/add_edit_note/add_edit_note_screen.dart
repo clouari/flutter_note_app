@@ -29,6 +29,17 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
     illusion
   ];
 
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      final viewModel = context.read<AddEditNoteViewModel>();
+      // initState 안에서는 read로 읽어줘야 함!!!
+
+      // 여기서 이벤트를 받아주는 코드 작성하기 stream 으로 작성
+    });
+  }
   // Color _color = roseBud; //제거함
 
   @override
@@ -40,6 +51,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // viewmodel 얻는 코드
     final viewModel = context.watch<AddEditNoteViewModel>();
 
     return Scaffold(
