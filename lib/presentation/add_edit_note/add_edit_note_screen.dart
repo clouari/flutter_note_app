@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_event.dart';
+import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_view_model.dart';
 import 'package:flutter_note_app/ui/colors.dart';
+import 'package:provider/provider.dart';
 
 class AddEditNoteScreen extends StatefulWidget {
   const AddEditNoteScreen({Key? key}) : super(key: key);
@@ -22,7 +25,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
     illusion
   ];
 
-  Color _color = roseBud;
+  // Color _color = roseBud; //제거함
 
   @override
   void dispose() {
@@ -33,6 +36,8 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<AddEditNoteViewModel>();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -41,7 +46,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
       body: AnimatedContainer(
         // 부드럽게 바뀌는 효과를 원한다면 AnimatedContainer로 duration만 지정해주기
         padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
-        color: _color,
+        color: Color(viewModel.color),
         duration: const Duration(milliseconds: 500),
         child: Column(
           children: [
@@ -51,13 +56,14 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
                   .map(
                     (color) => InkWell(
                       onTap: () {
-                        setState(() {
-                          _color = color;
-                        });
+                        viewModel
+                            .onEvent(AddEditNoteEvent.changeColor(color.value));
                       },
                       child: _buildBackgroundColor(
                         color: color,
-                        selected: _color == color,
+                        selected: viewModel.color == color.value,
+                        // 한 쪽은 숫자로 관리하고, 한 쪽은 컬러고 하면서 타입이 달라서 맞춰주는 과정이 필요함.
+                        // 숫자인 경우엔 .value 해줄 것.
                       ),
                     ),
                   )
