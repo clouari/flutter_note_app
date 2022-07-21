@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_event.dart';
 import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_view_model.dart';
 import 'package:flutter_note_app/ui/colors.dart';
 import 'package:provider/provider.dart';
 
 class AddEditNoteScreen extends StatefulWidget {
-  const AddEditNoteScreen({Key? key}) : super(key: key);
+  // 이것 가지고 노트 저장할 떼 판별힘
+  final Note? note;
+
+  const AddEditNoteScreen({Key? key, this.note}) : super(key: key);
 
   @override
   State<AddEditNoteScreen> createState() => _AddEditNoteScreenState();
@@ -48,6 +52,14 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
+
+          viewModel.onEvent(
+            AddEditNoteEvent.saveNote(
+                // note가 null이면 id도 null이고, null이 아니면 note.id 이다.
+                widget.note == null ? null : widget.note!.id,
+                _titleController.text,
+                _contentController.text),
+          );
         },
         child: Icon(Icons.save),
       ),
