@@ -5,6 +5,9 @@ import 'package:flutter_note_app/ui/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  // 플랫폼 채널의 위젯 바인딩을 보장
+  WidgetsFlutterBinding.ensureInitialized();
+
   // database 가져오는 것 때문에 await로 걸어주기
   final providers = await getProviders();
   runApp(
