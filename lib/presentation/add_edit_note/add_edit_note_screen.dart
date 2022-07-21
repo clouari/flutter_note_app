@@ -38,6 +38,13 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
       // initState 안에서는 read로 읽어줘야 함!!!
 
       // 여기서 이벤트를 받아주는 코드 작성하기 stream 으로 작성
+      viewModel.eventStream.listen((event) {
+        event.when(saveNote: () {
+          Navigator.pop(context, true);
+          // true 가 되면 savenote가 동작하면서 화면이 넘어갔다는 의미를 주기 때문에 필요함.
+          // 아무것도 넘어가지 않는다몀 사용자가 뒤로가기를 누른 것임.
+        });
+      });
     });
   }
   // Color _color = roseBud; //제거함
