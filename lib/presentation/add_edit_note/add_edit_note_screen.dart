@@ -82,6 +82,7 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
               content: Text('제목이나 내용이 비어있습니다'),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            return;
           }
 
           viewModel.onEvent(

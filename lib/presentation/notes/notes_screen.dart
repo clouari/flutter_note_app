@@ -50,8 +50,8 @@ class NotesScreen extends StatelessWidget {
               .map(
                 (note) => GestureDetector(
                   // GestureDetector로 감싸고 누르면 작성 edit화면으로 넘어가게 1차완료
-                  onTap: () {
-                    Navigator.push(
+                  onTap: () async {
+                    bool? isSaved = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AddEditNoteScreen(
@@ -60,6 +60,10 @@ class NotesScreen extends StatelessWidget {
                       ),
                       // 정보를 가지고 있는 객체, 화면 전환이나 화면 사이즈 등등 많은 것을 알고 있다.
                     );
+                    /* 저장ㅇ 되었다면 load를 다시 해 달라! */
+                    if (isSaved != null && isSaved) {
+                      viewModel.onEvent(const NotesEvent.loadNotes());
+                    }
                   },
                   child: NoteItem(
                     note: note,
