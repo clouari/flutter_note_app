@@ -16,7 +16,8 @@ class AddEditNoteViewModel with ChangeNotifier {
   int get color => _color;
 
   // 여기서 이벤트를 받아주는 코드 stream 으로 작성
-  final _eventController = StreamController<AddEditNoteUiEvent>();
+  final _eventController = StreamController<AddEditNoteUiEvent>.broadcast();
+  //broadcast 생성자를 사용하면 이렇게 생성된 컨트롤러는 여러번 listen을 할 수 있는 형태가 된다.
   Stream<AddEditNoteUiEvent> get eventStream => _eventController.stream;
 
   AddEditNoteViewModel(this.repository);

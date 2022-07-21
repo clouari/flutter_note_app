@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_event.dart';
@@ -20,6 +22,10 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
   // final _titleController = TextEditingController(); 로 해도 ok
   final TextEditingController _contentController = TextEditingController();
 
+  // 버그!! 메모를 하나만 저장하는건 정상적으로 작동하는데, 두 개부턴 메모는 저장이 되지만 화면이 갱신되지 않음
+  //  StreamSubscription 이 있다면 캔슬해주기
+  StreamSubscription? _streamSubscription;
+
   // 위에 선택할 컬러 Row list
   final List<Color> noteColors = [
     roseBud,
@@ -38,7 +44,8 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
       // initState 안에서는 read로 읽어줘야 함!!!
 
       // 여기서 이벤트를 받아주는 코드 작성하기 stream 으로 작성
-      viewModel.eventStream.listen((event) {
+      //  StreamSubscription 이 있다면 캔슬해주기 위해 코드 추가
+      _streamSubscription = viewModel.eventStream.listen((event) {
         event.when(saveNote: () {
           Navigator.pop(context, true);
           // true 가 되면 savenote가 동작하면서 화면이 넘어갔다는 의미를 주기 때문에 필요함.
