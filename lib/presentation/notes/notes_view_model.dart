@@ -16,7 +16,9 @@ class NotesViewModel with ChangeNotifier {
 
   Note? _recentlyDeletedNote; // 마지막에 삭제된 노트는 여기에 저장
 
-  NotesViewModel(this.repository);
+  NotesViewModel(this.repository) {
+    _loadNotes();
+  }
 
   /* 인간이 놓칠 수 있는 것들을 놓치지 않기 위해 만드는 것
   * -> 이 화면에서 발생하는 이벤트들은 onEvent라는 하나의 메서드 통해서만 실행할 것임.
