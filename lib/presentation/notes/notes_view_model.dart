@@ -34,6 +34,9 @@ class NotesViewModel with ChangeNotifier {
   /* loadNotes */
   Future<void> _loadNotes() async {
     List<Note> notes = await repository.getNotes();
+    /* 정렬기준: 날짜순으로, a 와 b의 timestamp를 비교한 후에 정렬 -> compareto 기본: 오름차순*/
+    notes.sort((a, b) => -a.timestamp.compareTo(b.timestamp));
+
     // 갖고오면 이 데이터를 저장할 부분이 필요하기 때문에 10번줄에서 공간 만들어 주기
     _state = state.copyWith(
       notes: notes,

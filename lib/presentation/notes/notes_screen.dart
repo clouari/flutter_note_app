@@ -17,7 +17,7 @@ class NotesScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         title: const Text(
-          'Your note',
+          'Dahui note',
           style: TextStyle(fontSize: 30),
         ),
         elevation: 0,
