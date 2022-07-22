@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
-import 'package:flutter_note_app/domain/repository/note_repository.dart';
+import 'package:flutter_note_app/domain/use_case/use_cases.dart';
 import 'package:flutter_note_app/presentation/notes/notes_event.dart';
 import 'package:flutter_note_app/presentation/notes/notes_state.dart';
 
 class NotesViewModel with ChangeNotifier {
-  final NoteRepository repository;
+  //final NoteRepository repository;
+  // final GetNotesUseCase getNotes;
+  // final DeleteNoteUseCase deleteNote;
+  // final AddNoteUseCase addNote;
+  final UseCases useCases;
 
   NotesState _state = NotesState(notes: []);
   NotesState get state => _state;
@@ -16,7 +20,7 @@ class NotesViewModel with ChangeNotifier {
 
   Note? _recentlyDeletedNote; // 마지막에 삭제된 노트는 여기에 저장
 
-  NotesViewModel(this.repository) {
+  NotesViewModel(this.useCases) {
     _loadNotes();
   }
 
@@ -33,10 +37,9 @@ class NotesViewModel with ChangeNotifier {
 
   /* loadNotes */
   Future<void> _loadNotes() async {
-    List<Note> notes = await repository.getNotes();
+    List<Note> notes = await useCases.getNotes();
     /* 정렬기준: 날짜순으로, a 와 b의 timestamp를 비교한 후에 정렬 -> compareto 기본: 오름차순*/
-    notes.sort((a, b) => -a.timestamp.compareTo(b.timestamp));
-
+    //notes.sort((a, b) => -a.timestamp.compareTo(b.timestamp));
     // 갖고오면 이 데이터를 저장할 부분이 필요하기 때문에 10번줄에서 공간 만들어 주기
     _state = state.copyWith(
       notes: notes,
@@ -47,12 +50,12 @@ class NotesViewModel with ChangeNotifier {
 
   /* DeleteNotes */
   Future<void> _deleteNote(Note note) async {
-    await repository.deleteNote(note);
+    await useCases.deleteNote(note);
 
     _recentlyDeletedNote = note; // 마지막에 delete된 노트는 여기에 저장을 함
 
     await _loadNotes(); // 삭제를 해 준 다음에는 데이터를 다시 읽어올 것
-    notifyListeners(); // 이후에 provider 사용할 것이기 때문에 상태가 바뀔 땐 notifyListeners 선언해주기
+    //notifyListeners(); // 이후에 provider 사용할 것이기 때문에 상태가 바뀔 땐 notifyListeners 선언해주기
   }
 
   /* restoreNote */
@@ -62,7 +65,7 @@ class NotesViewModel with ChangeNotifier {
      restore가 되면 다시 load를 하자! */
 
     if (_recentlyDeletedNote != null) {
-      repository.insertNote(_recentlyDeletedNote!);
+      useCases.addNote(_recentlyDeletedNote!);
       _recentlyDeletedNote = null;
 
       _loadNotes();

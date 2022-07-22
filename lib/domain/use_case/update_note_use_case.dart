@@ -1,13 +1,12 @@
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/domain/repository/note_repository.dart';
 
-class DeleteNote {
-  // note를 디루려면 NoteRepository가 필요함
+class UpdateNoteUseCase {
   final NoteRepository repository;
 
-  DeleteNote(this.repository);
+  UpdateNoteUseCase(this.repository);
 
   Future<void> call(Note note) async {
-    await repository.deleteNote(note);
+    await repository.updateNote(note);
   }
 }
