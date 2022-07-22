@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_note_app/domain/model/note.dart';
 import 'package:flutter_note_app/domain/use_case/use_cases.dart';
+import 'package:flutter_note_app/domain/util/note_order.dart';
+import 'package:flutter_note_app/domain/util/order_type.dart';
 import 'package:flutter_note_app/presentation/notes/notes_event.dart';
 import 'package:flutter_note_app/presentation/notes/notes_state.dart';
 
@@ -11,7 +13,12 @@ class NotesViewModel with ChangeNotifier {
   // final AddNoteUseCase addNote;
   final UseCases useCases;
 
-  NotesState _state = NotesState(notes: []);
+  NotesState _state = NotesState(
+    notes: [],
+    noteOrder: const NoteOrder.date(
+      OrderType.descending(),
+    ),
+  );
   NotesState get state => _state;
 
   // List<Note> _notes = [];
@@ -37,7 +44,7 @@ class NotesViewModel with ChangeNotifier {
 
   /* loadNotes */
   Future<void> _loadNotes() async {
-    List<Note> notes = await useCases.getNotes();
+    List<Note> notes = await useCases.getNotes(state.noteOrder);
     /* 정렬기준: 날짜순으로, a 와 b의 timestamp를 비교한 후에 정렬 -> compareto 기본: 오름차순*/
     //notes.sort((a, b) => -a.timestamp.compareTo(b.timestamp));
     // 갖고오면 이 데이터를 저장할 부분이 필요하기 때문에 10번줄에서 공간 만들어 주기
