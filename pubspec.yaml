@@ -38,7 +38,7 @@ dependencies:
   sqflite: ^2.0.0+4
   json_annotation: ^4.3.0
   freezed_annotation: ^1.0.0
-
+  mockito: ^5.0.16
 
 dev_dependencies:
   flutter_test:
