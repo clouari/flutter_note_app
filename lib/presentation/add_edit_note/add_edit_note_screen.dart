@@ -96,7 +96,8 @@ class _AddEditNoteScreenState extends State<AddEditNoteScreen> {
         padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
         color: Color(viewModel.color),
         duration: const Duration(milliseconds: 500),
-        child: Column(
+        child: ListView(
+          // 가로모드로 했을 때 영역이 넘어가니 공사장 나타남 -> ListView로 연결 해 주면 에러해결
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
