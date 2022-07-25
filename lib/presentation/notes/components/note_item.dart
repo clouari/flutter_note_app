@@ -31,14 +31,19 @@ class NoteItem extends StatelessWidget {
                   overflow: TextOverflow.ellipsis, // 넘어가는 것은 ... 으로!
                   style: Theme.of(context)
                       .textTheme
-                      .headline6, // 하나하나 상세지정하지 말고 동일하게 theme으로!
+                      .headline6!
+                      .apply(color: darkGray),
+                  // !로 널러블이 아님을 보장해주고, apply로 바로 지정 후 적용해 주기
+                  // 하나하나 상세지정하지 말고 동일하게 theme으로!
                 ),
                 const SizedBox(height: 8),
                 Text(
                   note.content,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText2!.apply(
+                        color: darkGray,
+                      ),
                 ),
               ],
             ),
