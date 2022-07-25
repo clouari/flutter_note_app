@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note_app/domain/util/note_order.dart';
 import 'package:flutter_note_app/presentation/add_edit_note/add_edit_note_screen.dart';
 import 'package:flutter_note_app/presentation/notes/components/note_item.dart';
 import 'package:flutter_note_app/presentation/notes/components/order_section.dart';
@@ -48,7 +49,12 @@ class NotesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-            OrderSection(),
+            OrderSection(
+              noteOrder: viewModel.state.noteOrder,
+              onOrderChanged: (NoteOrder noteOrder) {
+                viewModel.onEvent(NotesEvent.changeOrder(noteOrder));
+              },
+            ),
             /* List안에 List 넣을 때는 점 3개!!!!  */
             ...state.notes
                 .map(
