@@ -18,10 +18,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NotesStateTearOff {
   const _$NotesStateTearOff();
 
-  _NotesState call({required List<Note> notes, required NoteOrder noteOrder}) {
+  _NotesState call(
+      {required List<Note> notes,
+      required NoteOrder noteOrder,
+      required bool isOrderSectionVisible}) {
     return _NotesState(
       notes: notes,
       noteOrder: noteOrder,
+      isOrderSectionVisible: isOrderSectionVisible,
     );
   }
 }
@@ -34,6 +38,7 @@ mixin _$NotesState {
 //default 값을 넣고 싶으면, @Default([])
   List<Note> get notes => throw _privateConstructorUsedError;
   NoteOrder get noteOrder => throw _privateConstructorUsedError;
+  bool get isOrderSectionVisible => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $NotesStateCopyWith<NotesState> get copyWith =>
@@ -45,7 +50,8 @@ abstract class $NotesStateCopyWith<$Res> {
   factory $NotesStateCopyWith(
           NotesState value, $Res Function(NotesState) then) =
       _$NotesStateCopyWithImpl<$Res>;
-  $Res call({List<Note> notes, NoteOrder noteOrder});
+  $Res call(
+      {List<Note> notes, NoteOrder noteOrder, bool isOrderSectionVisible});
 
   $NoteOrderCopyWith<$Res> get noteOrder;
 }
@@ -62,6 +68,7 @@ class _$NotesStateCopyWithImpl<$Res> implements $NotesStateCopyWith<$Res> {
   $Res call({
     Object? notes = freezed,
     Object? noteOrder = freezed,
+    Object? isOrderSectionVisible = freezed,
   }) {
     return _then(_value.copyWith(
       notes: notes == freezed
@@ -72,6 +79,10 @@ class _$NotesStateCopyWithImpl<$Res> implements $NotesStateCopyWith<$Res> {
           ? _value.noteOrder
           : noteOrder // ignore: cast_nullable_to_non_nullable
               as NoteOrder,
+      isOrderSectionVisible: isOrderSectionVisible == freezed
+          ? _value.isOrderSectionVisible
+          : isOrderSectionVisible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -89,7 +100,8 @@ abstract class _$NotesStateCopyWith<$Res> implements $NotesStateCopyWith<$Res> {
           _NotesState value, $Res Function(_NotesState) then) =
       __$NotesStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<Note> notes, NoteOrder noteOrder});
+  $Res call(
+      {List<Note> notes, NoteOrder noteOrder, bool isOrderSectionVisible});
 
   @override
   $NoteOrderCopyWith<$Res> get noteOrder;
@@ -109,6 +121,7 @@ class __$NotesStateCopyWithImpl<$Res> extends _$NotesStateCopyWithImpl<$Res>
   $Res call({
     Object? notes = freezed,
     Object? noteOrder = freezed,
+    Object? isOrderSectionVisible = freezed,
   }) {
     return _then(_NotesState(
       notes: notes == freezed
@@ -119,6 +132,10 @@ class __$NotesStateCopyWithImpl<$Res> extends _$NotesStateCopyWithImpl<$Res>
           ? _value.noteOrder
           : noteOrder // ignore: cast_nullable_to_non_nullable
               as NoteOrder,
+      isOrderSectionVisible: isOrderSectionVisible == freezed
+          ? _value.isOrderSectionVisible
+          : isOrderSectionVisible // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -126,16 +143,21 @@ class __$NotesStateCopyWithImpl<$Res> extends _$NotesStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_NotesState implements _NotesState {
-  _$_NotesState({required this.notes, required this.noteOrder});
+  _$_NotesState(
+      {required this.notes,
+      required this.noteOrder,
+      required this.isOrderSectionVisible});
 
   @override //default 값을 넣고 싶으면, @Default([])
   final List<Note> notes;
   @override
   final NoteOrder noteOrder;
+  @override
+  final bool isOrderSectionVisible;
 
   @override
   String toString() {
-    return 'NotesState(notes: $notes, noteOrder: $noteOrder)';
+    return 'NotesState(notes: $notes, noteOrder: $noteOrder, isOrderSectionVisible: $isOrderSectionVisible)';
   }
 
   @override
@@ -144,14 +166,17 @@ class _$_NotesState implements _NotesState {
         (other.runtimeType == runtimeType &&
             other is _NotesState &&
             const DeepCollectionEquality().equals(other.notes, notes) &&
-            const DeepCollectionEquality().equals(other.noteOrder, noteOrder));
+            const DeepCollectionEquality().equals(other.noteOrder, noteOrder) &&
+            const DeepCollectionEquality()
+                .equals(other.isOrderSectionVisible, isOrderSectionVisible));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(notes),
-      const DeepCollectionEquality().hash(noteOrder));
+      const DeepCollectionEquality().hash(noteOrder),
+      const DeepCollectionEquality().hash(isOrderSectionVisible));
 
   @JsonKey(ignore: true)
   @override
@@ -162,12 +187,15 @@ class _$_NotesState implements _NotesState {
 abstract class _NotesState implements NotesState {
   factory _NotesState(
       {required List<Note> notes,
-      required NoteOrder noteOrder}) = _$_NotesState;
+      required NoteOrder noteOrder,
+      required bool isOrderSectionVisible}) = _$_NotesState;
 
   @override //default 값을 넣고 싶으면, @Default([])
   List<Note> get notes;
   @override
   NoteOrder get noteOrder;
+  @override
+  bool get isOrderSectionVisible;
   @override
   @JsonKey(ignore: true)
   _$NotesStateCopyWith<_NotesState> get copyWith =>

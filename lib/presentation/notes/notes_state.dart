@@ -10,5 +10,6 @@ class NotesState with _$NotesState {
     //default 값을 넣고 싶으면, @Default([])
     required List<Note> notes,
     required NoteOrder noteOrder,
+    required bool isOrderSectionVisible,
   }) = _NotesState;
 }

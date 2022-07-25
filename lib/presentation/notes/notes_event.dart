@@ -10,5 +10,6 @@ abstract class NotesEvent with _$NotesEvent {
   const factory NotesEvent.deleteNote(Note note) = DeleteNote;
   const factory NotesEvent.restoreNote() = ReStoreNote;
   const factory NotesEvent.changeOrder(NoteOrder noteOrder) = ChangeOrder;
+  const factory NotesEvent.toggleOrderSection() = ToggleOrderSection;
   // 봉인class의 장점은 data 를 받을 수 있다는 것!
 }

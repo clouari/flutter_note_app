@@ -18,6 +18,7 @@ class NotesViewModel with ChangeNotifier {
     noteOrder: const NoteOrder.date(
       OrderType.descending(),
     ),
+    isOrderSectionVisible: false,
   );
   NotesState get state => _state;
 
@@ -45,6 +46,12 @@ class NotesViewModel with ChangeNotifier {
           noteOrder: noteOrder,
         );
         _loadNotes();
+      },
+      toggleOrderSection: () {
+        _state =
+            state.copyWith(isOrderSectionVisible: !state.isOrderSectionVisible);
+        // 기존에 있던 값의 반대값으로 바꿔주가
+        notifyListeners();
       },
     );
   }
