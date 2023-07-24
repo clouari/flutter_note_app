@@ -9,4 +9,5 @@ class AddNoteUseCase {
   Future<void> call(Note note) async {
     await repository.insertNote(note);
   }
+  
 }
