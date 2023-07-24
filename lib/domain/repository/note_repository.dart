@@ -2,6 +2,7 @@
 import 'package:flutter_note_app/domain/model/note.dart';
 
 abstract class NoteRepository {
+  
   // 1. Note 객체를 얻는 기능을 비동기로 만들어두기
   Future<List<Note>> getNotes();
 
