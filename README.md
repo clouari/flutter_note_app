@@ -1,6 +1,6 @@
 # flutter_note_app
-A new Flutter project.
-Clean Architecture
+### A new Flutter project.
+### Clean Architecture
 
 ## Getting Started
 This project is a starting point for a Flutter application.
