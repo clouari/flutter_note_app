@@ -1,4 +1,4 @@
-# flutter_note_app
+# flutter note app
 ### A new Flutter project.
 ### Clean Architecture
 
